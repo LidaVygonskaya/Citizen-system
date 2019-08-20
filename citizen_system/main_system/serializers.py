@@ -1,9 +1,16 @@
+import re
+
 from rest_framework import serializers
 
 from main_system.models import Citizen
 
+# TODO: попробовать вынести валидацию отдельной функцией
+
 
 class CitizenListSerializer(serializers.ListSerializer):
+    """
+    List Serializer for citizen group for bulk creating.
+    """
     def validate(self, attrs):
         citizens_ids = [citizen['citizen_id'] for citizen in attrs]
         if len(set(citizens_ids)) != len(citizens_ids):
@@ -12,6 +19,9 @@ class CitizenListSerializer(serializers.ListSerializer):
 
     def create(self, validated_data):
         return Citizen.objects.bulk_create([Citizen(**data) for data in validated_data])
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError
 
 
 class CitizenSerializer(serializers.ModelSerializer):
@@ -41,6 +51,10 @@ class CitizenSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         attrs = super().validate(attrs)
+
+        name = attrs['name']
+        if not re.match(r'(?u)(\w+( |$)){2,3}', name):
+            raise serializers.ValidationError(f'Name {name} is invalid')
 
         relatives = attrs['relatives']
         if len(set(relatives)) != len(relatives):
@@ -90,6 +104,10 @@ class CitizenUpdateSerializer(serializers.ModelSerializer):
 
         citizens = self.context.get('citizen_group')
         citizens_ids = [citizen.citizen_id for citizen in citizens]
+
+        name = attrs.get('name')
+        if name is not None and not re.match(r'(?u)(\w+( |$)){2,3}', name):
+            raise serializers.ValidationError(f'Name {name} is invalid')
 
         relatives = attrs.get('relatives')
         if relatives:

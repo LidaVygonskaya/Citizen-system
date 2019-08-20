@@ -4,6 +4,9 @@ import string
 
 
 class Config:
+    """
+    Class for config to get templates as fields.
+    """
     pass
 
 
@@ -265,3 +268,18 @@ c.duplicate_relatives_update_values = {"relatives": [2, 2]}
 c.not_existant_update_relative = {"relatives": [8000000]}
 c.not_existant_update_date = {"birth_date": "31.02.2019"}
 c.wrong_format_update_date = {"birth_date": "11-11-2019"}
+
+c.invalid_name_template = {
+    "citizens": [
+        {
+            "apartment": 7,
+            "citizen_id": 1,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов",
+            "birth_date": "26.12.1986",
+            "gender": "male",
+            "relatives": []
+        }]
+}

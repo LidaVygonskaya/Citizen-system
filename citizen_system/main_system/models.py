@@ -4,9 +4,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
-# Create your models here.
-
-
 class CitizensGroup(models.Model):
     """
     Group of citizens model.
@@ -31,9 +28,9 @@ class Citizen(models.Model):
     street = models.TextField('Street on which citizen lives')
     building = models.TextField('Number of building')
     apartment = models.IntegerField('Number of flat')
-    name = models.TextField('Name of citizen')#, validators=[RegexValidator(r'', 'Wrong name format.')])
+    name = models.TextField('Name of citizen')
     birth_date = models.DateField('Birth date')
-    gender = models.TextField('Gender', choices=GENDER_CHOICES, default=MALE)
+    gender = models.TextField('Gender', choices=GENDER_CHOICES)
     relatives = ArrayField(models.IntegerField(), blank=True)
     import_group = models.ForeignKey(CitizensGroup, on_delete=models.CASCADE, null=True, to_field='import_id')
     age = models.IntegerField(default=0, editable=False)
@@ -46,6 +43,9 @@ class Citizen(models.Model):
         self.count_age()
 
     def count_age(self):
+        """
+        Count and set field age by now.
+        """
         today = datetime.date.today()
         self.age = today.year - self.birth_date.year - (
                 (today.month, today.day) < (self.birth_date.month, self.birth_date.day))

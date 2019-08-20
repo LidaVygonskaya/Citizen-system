@@ -14,14 +14,13 @@ from main_system.serializers import CitizenSerializer, CitizenUpdateSerializer
 def add_citizen_group(request: Request) -> Response:
     """
     Creates new group of citizens.
-    :param request:
+    :param request: request
     :return: Response
     """
     import_group = CitizensGroup()
     serializer = CitizenSerializer(data=request.data['citizens'], many=True, context={'import_group': import_group})
 
     if serializer.is_valid():
-        # Save citizen group if all citizens data is valid
         import_group.save()
 
         serializer.save(import_group=import_group)
@@ -99,6 +98,12 @@ def get_presents_amount(request: Request, import_id: int) -> Response:
 
 @api_view(['GET'])
 def get_towns_stat(request: Request, import_id: int) -> Response:
+    """
+    Get percentile for citizens by towns.
+    :param request: request
+    :param import_id: import_id field of CitizenGroup
+    :return:
+    """
     response_data = []
     citizens = Citizen.objects.filter(import_group=import_id)
     towns = citizens.values_list('town', flat=True).distinct()

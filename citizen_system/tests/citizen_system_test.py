@@ -51,6 +51,7 @@ class TestCitizenCreate:
         ('not_existant_relative', c.not_existant_relative),
         ('wrong_relation', c.wrong_relation),
         ('not_existant_date', c.not_existant_date),
+        ('invalid_name', c.invalid_name_template),
     ])
     def test_wrong_params(self, name, request_template):
         response = requests.post(f'{c.host}/imports',
