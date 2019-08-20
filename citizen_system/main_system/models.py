@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -49,6 +50,10 @@ class Citizen(models.Model):
         today = datetime.date.today()
         self.age = today.year - self.birth_date.year - (
                 (today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+
+    @staticmethod
+    def validate_name_field(name):
+        return re.match(r'(?u)(\w+( |$)){2,3}', name)
 
     def __str__(self):
         return f'{self.citizen_id}: {self.name}'

@@ -53,7 +53,7 @@ class CitizenSerializer(serializers.ModelSerializer):
         attrs = super().validate(attrs)
 
         name = attrs['name']
-        if not re.match(r'(?u)(\w+( |$)){2,3}', name):
+        if not Citizen.validate_name_field(name):
             raise serializers.ValidationError(f'Name {name} is invalid')
 
         relatives = attrs['relatives']
@@ -66,7 +66,8 @@ class CitizenSerializer(serializers.ModelSerializer):
             relative_model = self._get_citizen_by_citizen_id(relative_id)
 
             if relative_model is None:
-                raise serializers.ValidationError(f'Citizen with citizen_id {relative_id} is not presented in import.')
+                raise serializers.ValidationError(f'Citizen with citizen_id {relative_id}'
+                                                  f' is not presented in import.')
 
             if current_citizen_id not in relative_model['relatives']:
                 raise serializers.ValidationError(f'Citizen with {relative_id} does not have citizen with citizen_id'
@@ -106,7 +107,7 @@ class CitizenUpdateSerializer(serializers.ModelSerializer):
         citizens_ids = [citizen.citizen_id for citizen in citizens]
 
         name = attrs.get('name')
-        if name is not None and not re.match(r'(?u)(\w+( |$)){2,3}', name):
+        if name is not None and not Citizen.validate_name_field(name):
             raise serializers.ValidationError(f'Name {name} is invalid')
 
         relatives = attrs.get('relatives')
