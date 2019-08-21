@@ -18,7 +18,7 @@ def random_string(string_length=10):
 
 c = Config()
 
-c.host = 'http://127.0.0.1:8000'
+c.host = 'http://0.0.0.0:8000'
 c.base_one_citizen_template = {
     "citizens": [
         {
@@ -260,14 +260,82 @@ c.second_update_template = {
     "relatives": []
 }
 
-c.first_update_response_template = {}
-c.second_update_response_template = {}
+c.first_update_response_template = {
+    'data': [
+        {'citizen_id': 1,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Иван',
+         'birth_date': '26.12.1986',
+         'gender': 'male',
+         'relatives': [2, 3]
+         },
+        {'citizen_id': 2,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Сергей',
+         'birth_date': '26.12.1986',
+         'gender': 'male',
+         'relatives': [1]
+         },
+        {'citizen_id': 3,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Мария Леонидовна',
+         'birth_date': '26.12.1986',
+         'gender': 'female',
+         'relatives': [1]
+         }
+    ]
+}
+
+c.second_update_response_template = {
+    'data': [
+        {'citizen_id': 1,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Иван',
+         'birth_date': '26.12.1986',
+         'gender': 'male',
+         'relatives': [2]
+         },
+        {'citizen_id': 2,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Сергей',
+         'birth_date': '26.12.1986',
+         'gender': 'male',
+         'relatives': [1]
+         },
+        {'citizen_id': 3,
+         'town': 'Москва',
+         'street': 'Льва Толстого',
+         'building': '16к7стр5',
+         'apartment': 7,
+         'name': 'Иванов Мария Леонидовна',
+         'birth_date': '26.12.1986',
+         'gender': 'female',
+         'relatives': []
+         }
+    ]
+}
 
 c.wrong_gender_update_template = {"gender": "blabalbal"}
 c.duplicate_relatives_update_values = {"relatives": [2, 2]}
 c.not_existant_update_relative = {"relatives": [8000000]}
 c.not_existant_update_date = {"birth_date": "31.02.2019"}
 c.wrong_format_update_date = {"birth_date": "11-11-2019"}
+c.wrong_format_update_date_2 = {"birth_date": "12.25.2019"}
 
 c.invalid_name_template = {
     "citizens": [

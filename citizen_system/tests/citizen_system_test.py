@@ -18,7 +18,7 @@ def add_import_towns():
     return import_citizens(c.different_towns_template)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def add_import_many_citizen():
     return import_citizens(c.many_citizens_template)
 
@@ -43,6 +43,7 @@ class TestCitizenCreate:
         time_end = time.time()
         assert response.status_code == 201, 'Wrong response code'
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
+        assert isinstance(response.json()['data']['import_id'], int), 'Wrong format import_id'
 
     @pytest.mark.parametrize('name, request_template', [
         ('wrong gender', c.wrong_gender_template),
@@ -78,17 +79,23 @@ class TestCitizenUpdate:
                                   data=json.dumps(c.first_update_template),
                                   headers={'Content-Type': 'application/json'})
         assert response.status_code == 200
+        response_citizens = requests.get(f'{c.host}/imports/{id_}/citizens')
+        assert response_citizens.json() == c.first_update_response_template, 'Wrong after first update response'
+
         response = requests.patch(f'{c.host}/imports/{id_}/citizens/3',
                                   data=json.dumps(c.second_update_template),
                                   headers={'Content-Type': 'application/json'})
         assert response.status_code == 200
+        response_citizens = requests.get(f'{c.host}/imports/{id_}/citizens')
+        assert response_citizens.json() == c.second_update_response_template, 'Wrong after second update response'
 
     @pytest.mark.parametrize('name, request_template', [
         ('wrong gender', c.wrong_gender_update_template),
         ('duplicate_relatives', c.duplicate_relatives_update_values),
         ('not_existant_relative', c.not_existant_update_relative),
         ('not_existant_date', c.not_existant_update_date),
-        ('wrong_format_date', c.wrong_format_update_date)
+        ('wrong_format_date', c.wrong_format_update_date),
+        ('wrong_format_date_2', c.wrong_format_update_date_2)
     ])
     def test_wrong_params(self, name, request_template, add_import_many_citizen):
         id_ = add_import_many_citizen
@@ -107,6 +114,7 @@ class TestCitizenGetMethods:
         time_end = time.time()
         assert response.status_code == 200, 'Wrong response code'
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
+        assert response.json() == {'data': c.many_citizens_template['citizens']}, 'Wrong response data'
 
     def test_get_birthdays(self, add_import_many_citizen):
         id_ = add_import_many_citizen
