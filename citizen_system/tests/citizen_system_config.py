@@ -351,3 +351,21 @@ c.invalid_name_template = {
             "relatives": []
         }]
 }
+
+c.get_birthdays_response_template = {
+    'data': {
+        '1': [],
+        '2': [],
+        '3': [],
+        '4': [],
+        '5': [],
+        '6': [],
+        '7': [],
+        '8': [],
+        '9': [],
+        '10': [],
+        '11': [],
+        '12': [{'citizen_id': id_, 'presents': 1} if id_ != 1000
+               else {'citizen_id': id_, 'presents': 1000} for id_ in range(1001)]
+    }
+}

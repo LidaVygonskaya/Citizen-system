@@ -80,14 +80,16 @@ def get_presents_amount(request: Request, import_id: int) -> Response:
     :return:
     """
     response_data = {month: [] for month in range(1, 13)}
-    citizens_group = Citizen.objects.filter(import_group=import_id)
+    citizens_group = Citizen.objects.filter(import_group=import_id).order_by('citizen_id')
 
     for citizen in citizens_group:
         relatives = (citizens_group.filter(citizen_id__in=citizen.relatives)
                      .annotate(month=Month('birth_date'))
                      .values('month')
                      .annotate(presents=Count('month'))
+                     .order_by('month')
                      )
+
         for result in relatives:
             response_data[result['month']].append({
                 'citizen_id': citizen.citizen_id,

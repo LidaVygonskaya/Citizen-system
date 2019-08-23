@@ -124,6 +124,7 @@ class TestCitizenGetMethods:
         time_end = time.time()
         assert response.status_code == 200, 'Wrong response code'
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
+        assert response.json() == c.get_birthdays_response_template, 'Wrong response data'
 
     def test_get_percentile_stat(self, add_import_towns):
         id_ = add_import_towns
