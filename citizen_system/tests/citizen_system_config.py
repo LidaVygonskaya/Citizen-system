@@ -369,3 +369,94 @@ c.get_birthdays_response_template = {
                else {'citizen_id': id_, 'presents': 1000} for id_ in range(1001)]
     }
 }
+
+c.get_birthdays_import_different_months_test = {
+    "citizens": [
+        {
+            "apartment": 7,
+            "citizen_id": 1,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.01.1986",
+            "gender": "male",
+            "relatives": [5]
+        },
+        {
+            "apartment": 7,
+            "citizen_id": 2,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.01.1986",
+            "gender": "male",
+            "relatives": [5]
+        },
+        {
+            "apartment": 7,
+            "citizen_id": 3,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.01.1986",
+            "gender": "male",
+            "relatives": [5, 4]
+        },
+        {
+            "apartment": 7,
+            "citizen_id": 4,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.03.1986",
+            "gender": "male",
+            "relatives": [3]
+        },
+        {
+            "apartment": 7,
+            "citizen_id": 5,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.11.1986",
+            "gender": "male",
+            "relatives": [1, 2, 3]
+        },
+        {
+            "apartment": 7,
+            "citizen_id": 6,
+            "town": "Москва",
+            "street": "Льва Толстого",
+            "building": "16к7стр5",
+            "name": "Иванов Иван Иванович",
+            "birth_date": "26.05.1986",
+            "gender": "male",
+            "relatives": []
+        },
+    ]
+}
+
+c.get_birthdays_response_different_months_test = {
+    'data': {
+        '1': [{'citizen_id': 4, 'presents': 1},
+              {'citizen_id': 5, 'presents': 3}],
+        '2': [],
+        '3': [{'citizen_id': 3, 'presents': 1}],
+        '4': [],
+        '5': [],
+        '6': [],
+        '7': [],
+        '8': [],
+        '9': [],
+        '10': [],
+        '11': [{'citizen_id': 1, 'presents': 1},
+               {'citizen_id': 2, 'presents': 1},
+               {'citizen_id': 3, 'presents': 1}],
+        '12': []
+    }
+}

@@ -28,6 +28,11 @@ def add_import_citizen_update():
     return import_citizens(c.citizen_update_check)
 
 
+@pytest.fixture(scope='function')
+def add_import_citizen_by_template(import_template):
+    return import_citizens(import_template)
+
+
 class TestCitizenCreate:
     @pytest.mark.parametrize('name, request_template', [
         ('simple_test', c.base_one_citizen_template),
@@ -116,15 +121,19 @@ class TestCitizenGetMethods:
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
         assert response.json() == {'data': c.many_citizens_template['citizens']}, 'Wrong response data'
 
-    def test_get_birthdays(self, add_import_many_citizen):
-        id_ = add_import_many_citizen
+    @pytest.mark.parametrize('name, import_template, response_template', [
+        ('many_citizens', c.many_citizens_template, c.get_birthdays_response_template),
+        ('many_months', c.get_birthdays_import_different_months_test, c.get_birthdays_response_different_months_test)
+    ])
+    def test_get_birthdays(self, add_import_citizen_by_template, name, import_template, response_template):
+        id_ = add_import_citizen_by_template
         time_start = time.time()
         response = requests.get(f'{c.host}/imports/{id_}/citizens/birthdays',
                                 headers={'Content-Type': 'application/json'})
         time_end = time.time()
         assert response.status_code == 200, 'Wrong response code'
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
-        assert response.json() == c.get_birthdays_response_template, 'Wrong response data'
+        assert response.json() == response_template, 'Wrong response data'
 
     def test_get_percentile_stat(self, add_import_towns):
         id_ = add_import_towns
