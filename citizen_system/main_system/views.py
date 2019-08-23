@@ -108,7 +108,7 @@ def get_towns_stat(request: Request, import_id: int) -> Response:
     """
     response_data = []
     citizens = Citizen.objects.filter(import_group=import_id)
-    towns = citizens.values_list('town', flat=True).distinct()
+    towns = citizens.values_list('town', flat=True).distinct().order_by('town')
 
     for town in towns:
         town_citizens_age = citizens.filter(town=town).values_list('age', flat=True)

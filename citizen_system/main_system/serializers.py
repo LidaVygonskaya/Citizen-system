@@ -4,8 +4,6 @@ from rest_framework import serializers
 
 from main_system.models import Citizen
 
-# TODO: попробовать вынести валидацию отдельной функцией
-
 
 class CitizenListSerializer(serializers.ListSerializer):
     """

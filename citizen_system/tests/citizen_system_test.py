@@ -135,11 +135,16 @@ class TestCitizenGetMethods:
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
         assert response.json() == response_template, 'Wrong response data'
 
-    def test_get_percentile_stat(self, add_import_towns):
-        id_ = add_import_towns
+    @pytest.mark.parametrize('name, import_template, response_template', [
+        ('many_towns_one_age', c.different_towns_template, c.percentile_different_towns_response_template),
+        ('different_age', c.percentile_import_template, c.percentile_response_template)
+    ])
+    def test_get_percentile_stat(self, add_import_citizen_by_template, name, import_template, response_template):
+        id_ = add_import_citizen_by_template
         time_start = time.time()
         response = requests.get(f'{c.host}/imports/{id_}/towns/stat/percentile/age',
                                 headers={'Content-Type': 'application/json'})
         time_end = time.time()
         assert response.status_code == 200, 'Wrong response code'
         assert (time_end - time_start) < 10.0, 'Time limit exceeded'
+        assert response.json() == response_template, 'Wrong response template'

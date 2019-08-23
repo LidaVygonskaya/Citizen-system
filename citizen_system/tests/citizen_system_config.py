@@ -138,6 +138,11 @@ c.simple_citizen_template = {
 
 
 def generate_citizen(citizen_id):
+    """
+    Returns citizen, from simple citizen_template.
+    :type citizen_id: citizen's id
+    :return: new citizens template
+    """
     new_template = copy.deepcopy(c.simple_citizen_template)
     new_template['citizen_id'] = citizen_id
     return new_template
@@ -153,12 +158,23 @@ for i in range(1000):
 # Template with 10 000 citizens and 2000 relationships and different town
 c.different_towns_template = {'citizens': [generate_citizen(i) for i in range(10000)]}
 c.different_towns_template['citizens'][1000]['relatives'] = [i for i in range(1000)]
+
+c.percentile_different_towns_response_template = {
+    'data': [{'town': 'town', 'p50': 32, 'p75': 32, 'p99': 32} for i in range(1000)]
+}
+
 for i in range(1000):
     c.different_towns_template['citizens'][i]['relatives'] = [1000]
-    c.different_towns_template['citizens'][i]['town'] = random_string()
+    town = random_string()
+    c.different_towns_template['citizens'][i]['town'] = town
+    c.percentile_different_towns_response_template['data'][i]['town'] = town
 
+c.percentile_different_towns_response_template['data'] = sorted(c.percentile_different_towns_response_template['data'],
+                                                                key=lambda elem: elem['town'])
 
-c.percentile_check = {
+c.percentile_different_towns_response_template['data'].append({'town': 'Москва', 'p50': 32, 'p75': 32, 'p99': 32})
+
+c.percentile_import_template = {
     "citizens": [
         {
             "apartment": 7,
@@ -204,6 +220,13 @@ c.percentile_check = {
             "gender": "male",
             "relatives": []
         }
+    ]
+}
+
+c.percentile_response_template = {
+    'data': [
+        {'town': 'Москва', 'p50': 23, 'p75': 26, 'p99': 28},
+        {'town': 'Петербург', 'p50': 36, 'p75': 52, 'p99': 68}
     ]
 }
 
