@@ -89,49 +89,49 @@ c.not_existant_relative = copy.deepcopy(c.base_one_citizen_template)
 c.not_existant_relative["citizens"][0]["relatives"] = [2]
 
 c.invalid_name_one_word_template = copy.deepcopy(c.base_one_citizen_template)
-c.invalid_name_one_word_template['citizens'][0]['name'] = 'Иван'
+c.invalid_name_one_word_template["citizens"][0]["name"] = "Иван"
 
-c.invalid_apartment = copy.deepcopy(c.base_one_citizen_template)
-c.invalid_apartment['citizens'][0]['apartment'] = 'apart'
+c.empty_apartment = copy.deepcopy(c.base_one_citizen_template)
+c.empty_apartment["citizens"][0]["apartment"] = ""
 
 c.empty_town = copy.deepcopy(c.base_one_citizen_template)
-c.empty_town['citizens'][0]['town'] = ''
+c.empty_town["citizens"][0]["town"] = ""
 
 c.empty_street = copy.deepcopy(c.base_one_citizen_template)
-c.empty_street['citizens'][0]['street'] = ''
+c.empty_street["citizens"][0]["street"] = ""
 
 c.empty_building = copy.deepcopy(c.base_one_citizen_template)
-c.empty_building['citizens'][0]['building'] = ''
+c.empty_building["citizens"][0]["building"] = ""
 
 c.empty_birth_date = copy.deepcopy(c.base_one_citizen_template)
-c.empty_birth_date['citizens'][0]['birth_date'] = ''
+c.empty_birth_date["citizens"][0]["birth_date"] = ""
 
 c.empty_name = copy.deepcopy(c.base_one_citizen_template)
-c.empty_name['citizens'][0]['name'] = ''
+c.empty_name["citizens"][0]["name"] = ""
 
 c.no_apartment = copy.deepcopy(c.base_one_citizen_template)
-del c.no_apartment['citizens'][0]['apartment']
+del c.no_apartment["citizens"][0]["apartment"]
 
 c.no_town = copy.deepcopy(c.base_one_citizen_template)
-del c.no_town['citizens'][0]['town']
+del c.no_town["citizens"][0]["town"]
 
 c.no_street = copy.deepcopy(c.base_one_citizen_template)
-del c.no_street['citizens'][0]['street']
+del c.no_street["citizens"][0]["street"]
 
 c.no_building = copy.deepcopy(c.base_one_citizen_template)
-del c.no_building['citizens'][0]['building']
+del c.no_building["citizens"][0]["building"]
 
 c.no_birth_date = copy.deepcopy(c.base_one_citizen_template)
-del c.no_birth_date['citizens'][0]['birth_date']
+del c.no_birth_date["citizens"][0]["birth_date"]
 
 c.no_gender = copy.deepcopy(c.base_one_citizen_template)
-del c.no_gender['citizens'][0]['gender']
+del c.no_gender["citizens"][0]["gender"]
 
 c.no_relatives = copy.deepcopy(c.base_one_citizen_template)
-del c.no_relatives['citizens'][0]['relatives']
+del c.no_relatives["citizens"][0]["relatives"]
 
 c.no_name = copy.deepcopy(c.base_one_citizen_template)
-del c.no_name['citizens'][0]['name']
+del c.no_name["citizens"][0]["name"]
 
 c.same_citizen_id_template = {
     "citizens": [
@@ -431,6 +431,12 @@ c.wrong_format_update_date = {"birth_date": "11-11-2019"}
 c.wrong_format_update_date_2 = {"birth_date": "12.25.2019"}
 c.wrong_name_update_template = {"name": "Иван Иванов Иванович Слово"}
 c.wrong_name_update_template_2 = {"name": "иван"}
+c.empty_apartment_update = {"apartment": ""}
+c.empty_town_update = {"town": ""}
+c.empty_street_update = {"street": ""}
+c.empty_building_update = {"building": ""}
+c.empty_birth_date_update = {"birth_date": ""}
+c.empty_name_update = {"name": ""}
 
 c.invalid_name_template = {
     "citizens": [

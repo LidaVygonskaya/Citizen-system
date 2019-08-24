@@ -40,7 +40,7 @@ class TestCitizenCreate:
             ("simple_test", c.base_one_citizen_template),
             ("10000_citizens", c.many_citizens_template),
             ("many_towns", c.different_towns_template),
-            ("without name", c.citizen_without_)
+            ("without name", c.citizen_without_),
         ],
     )
     def test_positive_create(self, name, request_template):
@@ -65,7 +65,7 @@ class TestCitizenCreate:
             ("not_existant_date", c.not_existant_date),
             ("invalid_name", c.invalid_name_template),
             ("invalid_name_one_word", c.invalid_name_one_word_template),
-            ("invalid_apartment", c.invalid_apartment),
+            ("empty_apartment", c.empty_apartment),
             ("empty_town", c.empty_town),
             ("empty_street", c.empty_street),
             ("empty_building", c.empty_building),
@@ -78,7 +78,7 @@ class TestCitizenCreate:
             ("no_birth_date", c.no_birth_date),
             ("no_gender", c.no_gender),
             ("no_relatives", c.no_relatives),
-            ("no_name", c.no_name)
+            ("no_name", c.no_name),
         ],
     )
     def test_wrong_params(self, name, request_template):
@@ -133,6 +133,12 @@ class TestCitizenUpdate:
             ("wrong_format_date_2", c.wrong_format_update_date_2),
             ("invalid_name", c.wrong_name_update_template),
             ("invalid_name_one_word", c.wrong_name_update_template_2),
+            ("empty_apartment_update", c.empty_apartment_update),
+            ("empty_town_update", c.empty_town_update),
+            ("empty_street_update", c.empty_street_update),
+            ("empty_building_update", c.empty_building_update),
+            ("empty_birth_date_update", c.empty_birth_date_update),
+            ("empty_name_update", c.empty_name_update),
         ],
     )
     def test_wrong_params(self, name, request_template, add_import_many_citizen):

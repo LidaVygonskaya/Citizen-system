@@ -32,7 +32,7 @@ class CitizenSerializer(serializers.ModelSerializer):
         model = Citizen
         list_serializer_class = CitizenListSerializer
         fields = ["citizen_id", "town", "street", "building", "apartment", "name", "birth_date", "gender", "relatives"]
-        extra_kwargs = {'relatives': {'required': True}}
+        extra_kwargs = {"relatives": {"required": True}}
 
     def _get_citizen_by_citizen_id(self, citizen_id):
         for citizen in self.initial_data:
