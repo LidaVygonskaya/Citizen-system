@@ -9,34 +9,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CitizensGroup',
-            fields=[
-                ('import_id', models.AutoField(primary_key=True, serialize=False)),
-            ],
+            name="CitizensGroup", fields=[("import_id", models.AutoField(primary_key=True, serialize=False))]
         ),
         migrations.CreateModel(
-            name='Citizen',
+            name="Citizen",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('citizen_id', models.IntegerField()),
-                ('town', models.TextField(verbose_name='Town, where citizen lives')),
-                ('street', models.TextField(verbose_name='Street on which citizen lives')),
-                ('building', models.TextField(verbose_name='Number of building')),
-                ('apartment', models.IntegerField(verbose_name='Number of flat')),
-                ('name', models.TextField(verbose_name='Name of citizen')),
-                ('birth_date', models.DateField(verbose_name='Birth date')),
-                ('gender', models.TextField(choices=[('male', 'male'), ('female', 'female')], verbose_name='Gender')),
-                ('relatives', django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), blank=True, size=None)),
-                ('age', models.IntegerField(default=0, editable=False)),
-                ('import_group', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='main_system.CitizensGroup')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("citizen_id", models.IntegerField()),
+                ("town", models.TextField(verbose_name="Town, where citizen lives")),
+                ("street", models.TextField(verbose_name="Street on which citizen lives")),
+                ("building", models.TextField(verbose_name="Number of building")),
+                ("apartment", models.IntegerField(verbose_name="Number of flat")),
+                ("name", models.TextField(verbose_name="Name of citizen")),
+                ("birth_date", models.DateField(verbose_name="Birth date")),
+                ("gender", models.TextField(choices=[("male", "male"), ("female", "female")], verbose_name="Gender")),
+                (
+                    "relatives",
+                    django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), blank=True, size=None),
+                ),
+                ("age", models.IntegerField(default=0, editable=False)),
+                (
+                    "import_group",
+                    models.ForeignKey(
+                        null=True, on_delete=django.db.models.deletion.CASCADE, to="main_system.CitizensGroup"
+                    ),
+                ),
             ],
-            options={
-                'unique_together': {('import_group', 'citizen_id')},
-            },
+            options={"unique_together": {("import_group", "citizen_id")}},
         ),
     ]

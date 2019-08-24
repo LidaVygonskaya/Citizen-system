@@ -16,15 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from main_system.views import add_citizen_group, update_citizen, get_imports_citizens, get_presents_amount, \
-    get_towns_stat
+from main_system.views import (
+    add_citizen_group,
+    update_citizen,
+    get_imports_citizens,
+    get_presents_amount,
+    get_towns_stat,
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('imports', add_citizen_group),
-    path('imports/<int:import_id>/citizens/<int:citizen_id>', update_citizen),
-    path('imports/<int:import_id>/citizens', get_imports_citizens),
-    path('imports/<int:import_id>/citizens/birthdays', get_presents_amount),
-    path('imports/<int:import_id>/towns/stat/percentile/age', get_towns_stat),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path("admin/", admin.site.urls),
+    path("imports", add_citizen_group),
+    path("imports/<int:import_id>/citizens/<int:citizen_id>", update_citizen),
+    path("imports/<int:import_id>/citizens", get_imports_citizens),
+    path("imports/<int:import_id>/citizens/birthdays", get_presents_amount),
+    path("imports/<int:import_id>/towns/stat/percentile/age", get_towns_stat),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

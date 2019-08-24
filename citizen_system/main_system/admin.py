@@ -5,7 +5,7 @@ from main_system.models import Citizen, CitizensGroup
 
 
 class CitizenAdmin(admin.ModelAdmin):
-    readonly_fields = ('age',)
+    readonly_fields = ("age",)
 
 
 admin.site.register(Citizen, CitizenAdmin)
