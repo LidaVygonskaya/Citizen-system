@@ -46,5 +46,6 @@ SecretKey = GENERATED_SECRET_KEY
 `$ gunicorn -c ../gunicorn_config.py citizen_system.wsgi`
 #### Запуск тестов
 `$ pytest citizen_system/tests/citizen_system_test.py`
+
 При запуске тестов с дев тачки необходимо активировать виртуальное окружение.
 `$ source ~/env/bin/activate`
