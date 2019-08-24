@@ -1,5 +1,3 @@
-import re
-
 from rest_framework import serializers
 
 from main_system.models import Citizen

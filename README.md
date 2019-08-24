@@ -29,10 +29,10 @@ grant all privileges on database DATABASE_NAME to USER_NAME;
 Name = DATABASE_NAME
 User = USER_NAME
 Password = PASSWORD
-Host = 127.0.0.1
-Port = 5432
+Host = HOST
+Port = PORT
 ```
-Хост и порт оставила стандартными для PosgtreSQL.
+Стандартные хост и порт для PosgtreSQL: HOST=127.0.0.1, PORT=5432
 #### Добавить SECRET_KEY в config.ini
 Сгенерировать SECRET_KEY. Например вот тут [https://djecrety.ir/](https://djecrety.ir/).
 Занести его в config.ini.
